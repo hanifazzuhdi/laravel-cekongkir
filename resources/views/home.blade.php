@@ -54,25 +54,57 @@
     </div>
 </div>
 
-<div class="container">
-
-    <div class="text-center my-4">
-        <h2>Cek Ongkir Nasional</h2>
-        <p class="lead">Layanan Cek Ongkir ke Seluruh Kota / Kab di Indonesia </p>
-    </div>
-
-
-    <form action="" method="POST">
-        <div class="form-group">
-            <label for="province_origin">Provinsi Asal : </label>
-            <select class="form-control" name="province_origin" id="province_origin">
-                @foreach ($hasil as $item)
-                <option value="{{$item->province_id}}">{{$item->province}}</option>
-                @endforeach
-            </select>
+<div class="container my-5">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="text-primary"> Cek Ongkir Ekspedisi Indonesia </h5>
         </div>
-    </form>
+        <div class="card-body">
+            <form action="" method="POST">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="mb-4">Asal Pengiriman</h4>
+                        <div class="form-group">
+                            <label for="province_origin">Provinsi : </label>
+                            <select class="form-control" name="province_origin" id="province_origin">
+                                @foreach ($hasil as $item)
+                                <option value="{{$item->province_id}}">{{$item->province}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="city_origin">Kota / Kab :</label>
+                            <select class="form-control" name="city_origin" id="city_origin">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <h4 class="mb-4">Tujuan Pengiriman</h4>
+                        <div class="form-group">
+                            <label for="city_origin">Kota / Kab :</label>
+                            <select class="form-control" name="city_origin" id="city_origin">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ekspedisi">Ekspedisi : </label>
+                            <select class="form-control" name="" id="ekspedisi">
+                                <option value="">JNE</option>
+                                <option value="">POS INDONESIA</option>
+                                <option value="">TIKI</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group border-top pt-3 mt-4 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-outline-primary">Cek Ongkir</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @endsection

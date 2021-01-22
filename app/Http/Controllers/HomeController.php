@@ -33,6 +33,23 @@ class HomeController extends Controller
         return $hasil->rajaongkir->results;
     }
 
+    public function getCity($province_id = null)
+    {
+        $client = new Client();
+        $res = $client->request('GET', 'https://api.rajaongkir.com/starter/city', [
+            'query' => [
+                'province' => $province_id
+            ],
+            'headers' => [
+                'key' => '40faa719f0c3f072390e437ef1905723',
+            ]
+        ]);
+
+        $hasil = json_decode($res->getBody()->getContents());
+
+        return $hasil->rajaongkir->results;
+    }
+
     public function cekOngkir()
     {
         return request();
