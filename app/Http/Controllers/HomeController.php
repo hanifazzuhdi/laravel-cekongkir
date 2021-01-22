@@ -2,27 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    // Home
     public function index()
     {
-        return view('home');
+        $hasil = $this->getProvince();
+
+        return view('home', compact('hasil'));
+        // return view('home');
+    }
+
+    public function getProvince()
+    {
+        $client = new Client();
+        $res = $client->request('GET', 'https://api.rajaongkir.com/starter/province', [
+            'headers' => [
+                'key' => '40faa719f0c3f072390e437ef1905723',
+            ]
+        ]);
+        $hasil = json_decode($res->getBody()->getContents());
+
+        return $hasil->rajaongkir->results;
+    }
+
+    public function cekOngkir()
+    {
+        return request();
     }
 }
