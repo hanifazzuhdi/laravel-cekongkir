@@ -6,18 +6,12 @@ use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
-    // Home
     public function index()
     {
         $hasil = $this->getProvince();
+        $allCity = $this->getAllCity();
 
-        return view('home', compact('hasil'));
-        // return view('home');
+        return view('home', compact('hasil', 'allCity'));
     }
 
     public function getProvince()
@@ -33,7 +27,20 @@ class HomeController extends Controller
         return $hasil->rajaongkir->results;
     }
 
-    public function getCity($province_id = null)
+    public function getAllCity()
+    {
+        $client = new Client();
+        $res = $client->request('GET', 'https://api.rajaongkir.com/starter/city', [
+            'headers' => [
+                'key' => '40faa719f0c3f072390e437ef1905723',
+            ]
+        ]);
+        $hasil = json_decode($res->getBody()->getContents());
+
+        return $hasil->rajaongkir->results;
+    }
+
+    public function getCity($province_id)
     {
         $client = new Client();
         $res = $client->request('GET', 'https://api.rajaongkir.com/starter/city', [
@@ -50,8 +57,28 @@ class HomeController extends Controller
         return $hasil->rajaongkir->results;
     }
 
-    public function cekOngkir()
+    public function cekOngkir(Client $client)
     {
-        return request();
+        $res = $client->request('POST', 'https://api.rajaongkir.com/starter/cost', [
+            'headers' => [
+                'key' => '40faa719f0c3f072390e437ef1905723'
+            ],
+
+            'form_params' => [
+                'origin' => request('origin'),
+                'destination' => request('destination'),
+                'weight' => request('weight'),
+                'courier' => request('courier')
+            ]
+        ]);
+
+        abort_if(!$res, 404, "tidak ditemukan");
+
+        $hasil = json_decode($res->getBody()->getContents());
+
+        $data = $hasil->rajaongkir->results;
+
+        return redirect(route('home'))
+            ->with('success', $data);
     }
 }

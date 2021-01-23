@@ -22,4 +22,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/getCity/{province_id}', 'HomeController@getCity');
+
 Route::post('/cekOngkir', 'HomeController@cekOngkir')->name('cekOngkir');

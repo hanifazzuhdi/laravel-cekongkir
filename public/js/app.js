@@ -43446,6 +43446,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 $(function () {
+  $('.select2').select2();
   $('select[name="province_origin"]').on('change', function () {
     var province_id = $(this).val();
     console.log(province_id);
@@ -43455,9 +43456,9 @@ $(function () {
       dataType: 'JSON',
       success: function success(data) {
         console.log(data);
-        $('select[name="city_origin"]').empty();
+        $('select[name="origin"]').empty();
         data.map(function (val, key) {
-          $('select[name="city_origin"]').append("<option value=\"".concat(val.city_id, "\"> ").concat(val.type, " ").concat(val.city_name, " </option>"));
+          $('select[name="origin"]').append("<option value=\"".concat(val.city_id, "\"> ").concat(val.type, " ").concat(val.city_name, " </option>"));
         });
       }
     });
