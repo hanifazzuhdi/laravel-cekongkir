@@ -18,7 +18,9 @@ $(function () {
                     $('select[name="origin"]').append(`<option value="${val.city_id}"> ${val.type} ${val.city_name} </option>`);
                 });
             },
-            failed: alert('Gagal melakukan permintaan');
+            failed: function (){
+                alert('Gagal melakukan permintaan');
+            }
         })
     });
 
